@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scan Your ID Card</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Please Scan Your National ID Card</h1>
+    <button id="scan-button">Scan ID</button>
+    <div id="error-message" style="color: red;"></div>
+
+    <script>
+        document.getElementById('scan-button').addEventListener('click', function() {
+            // Simulate the NFC scan (in reality, this would trigger your NFC Python service)
+            let card_uid = prompt("Scan your ID card and enter the UID manually here:");
+
+            if (card_uid) {
+                // Send the UID to Django backend using AJAX
+                $.ajax({
+                    url: '/api/nfc/',  // Django API URL
+                    method: 'POST',
+                    data: {
+                        'card_uid': card_uid
+                    },
+                    success: function(response) {
+                        if (response.error) {
+                            $('#error-message').text(response.error);
+                        } else {
+                            // Redirect to the page with the user's information
+                            window.location.href = `/card-info/${card_uid}/`;
+                        }
+                    },
+                    error: function() {
+                        $('#error-message').text('Failed to fetch information.');
+                    }
+                });
+            } else {
+                $('#error-message').text('No card detected or UID not entered.');
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scan Your ID Card</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Please Scan Your National ID Card</h1>
+    <button id="scan-button">Scan ID</button>
+    <div id="error-message" style="color: red;"></div>
+
+    <script>
+        document.getElementById('scan-button').addEventListener('click', function() {
+            // Simulate the NFC scan (in reality, this would trigger your NFC Python service)
+            let card_uid = prompt("Scan your ID card and enter the UID manually here:");
+
+            if (card_uid) {
+                // Send the UID to Django backend using AJAX
+                $.ajax({
+                    url: '/api/nfc/',  // Django API URL
+                    method: 'POST',
+                    data: {
+                        'card_uid': card_uid
+                    },
+                    success: function(response) {
+                        if (response.error) {
+                            $('#error-message').text(response.error);
+                        } else {
+                            // Redirect to the page with the user's information
+                            window.location.href = `/card-info/${card_uid}/`;
+                        }
+                    },
+                    error: function() {
+                        $('#error-message').text('Failed to fetch information.');
+                    }
+                });
+            } else {
+                $('#error-message').text('No card detected or UID not entered.');
+            }
+        });
+    </script>
+</body>
+</html>
